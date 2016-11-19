@@ -672,6 +672,7 @@ define(['jquery', 'abstractBackend', 'util', 'uiUtil', 'cookies','geometry','osa
     }
 
     function setLocalArchiveFromFileList(files) {
+
         selectedArchive = backend.loadArchiveFromFiles(files);
         if (checkSelectedArchiveCompatibilityWithInjectionMode()) {
             // The archive is set : go back to home page to start searching
@@ -682,6 +683,8 @@ define(['jquery', 'abstractBackend', 'util', 'uiUtil', 'cookies','geometry','osa
      * Sets the localArchive from the File selects populated by user
      */
     function setLocalArchiveFromFileSelect() {
+        alert("this is the place~");
+
         setLocalArchiveFromFileList(document.getElementById('archiveFiles').files);
     }
 
