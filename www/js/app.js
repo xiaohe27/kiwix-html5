@@ -481,19 +481,25 @@ define(['jquery', 'abstractBackend', 'util', 'uiUtil', 'cookies','geometry','osa
     }
 
     if ($.isFunction(navigator.getDeviceStorages)) {
+        alert("Is FxOS");
         // The method getDeviceStorages is available (FxOS>=1.1)
         storages = $.map(navigator.getDeviceStorages("sdcard"), function(s) {
             return new osabstraction.StorageFirefoxOS(s);
         });
     } else if ($.isFunction(window.requestFileSystem)) {
+        alert("Not FxOS");
+
         // The requestFileSystem is available (Cordova)
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fs) {
             storages[0] = new osabstraction.StoragePhoneGap(fs);
             searchForArchivesInPreferencesOrStorage();
         });
+    } else {
+        alert("Nothing...");
     }
 
     if (storages !== null && storages.length > 0) {
+        alert("hi, storage is NOT NULL and sth is there");
         // Make a fake first access to device storage, in order to ask the user for confirmation if necessary.
         // This way, it is only done once at this moment, instead of being done several times in callbacks
         // After that, we can start looking for archives
@@ -501,6 +507,8 @@ define(['jquery', 'abstractBackend', 'util', 'uiUtil', 'cookies','geometry','osa
                                                   searchForArchivesInPreferencesOrStorage);
     }
     else {
+        alert("hi, storage is null");
+
         // If DeviceStorage is not available, we display the file select components
         displayFileSelect();
         if (document.getElementById('archiveFiles').files && document.getElementById('archiveFiles').files.length>0) {
